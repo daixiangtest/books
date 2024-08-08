@@ -35,8 +35,8 @@ class LoginView(View):
 class BooksView(View):
     # 查询图书
     def get(self, request):
-        if not request.user.is_authenticated:
-            return JsonResponse({'code': 201, 'message': '没有登录'})
+        # if not request.user.is_authenticated:
+        #     return JsonResponse({'code': 201, 'message': '没有登录'})
         book = Books.objects.all()
         data = []
         for i in book:
