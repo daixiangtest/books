@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+# 全局注册该跨域访问的方法
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,12 +51,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 全局注册该跨域访问的方法
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware'
+
 ]
-# 争对所有IP都可以访问
+# 针对所有IP都可以跨域访问
 CORS_ALLOW_ALL_ORIGINS = True
+# 允许跨域时携带cookies
+CORS_ALLOW_CREDENTIALS = True
+
+
 ROOT_URLCONF = 'books.urls'
 
 TEMPLATES = [

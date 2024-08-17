@@ -105,8 +105,10 @@ class LendView(View):
             return JsonResponse({'code': 201, 'message': '没有登录'})
         params = request.GET
         try:
+            # book = Books.objects.get(id='E002')
             book = Books.objects.get(id=params['id'])
         except Exception as e:
+            print(e)
             return JsonResponse({'code': 202, 'message': '没有这本书'})
         if not book.statua:
             return JsonResponse({'code': 203, 'message': '这本书没有出借'})
@@ -114,9 +116,9 @@ class LendView(View):
             with transaction.atomic():
                 book.statua = False
                 book.save()
-                print(self.ids)
-                record = Record.objects.get(id=params['ids'])
-                # record = Record.objects.create(book=book, name=params['name'])
+                print(book)
+                # record = Record.objects.get(id=params['ids'])
+                record = Record.objects.create(book=book, name=params['name'])
                 record.s_time = datetime.now()
                 record.save()
                 return JsonResponse({'code': 200, 'message': '还书成功'})
